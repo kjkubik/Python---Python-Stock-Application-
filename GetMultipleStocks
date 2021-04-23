@@ -1,0 +1,35 @@
+import datetime
+
+from polygon import RESTClient
+
+def ts_to_datetime(ts) -> str:
+    return datetime.datetime.fromtimestamp(ts / 1000.0).strftime('%Y-%m-%d')
+
+tickertuple = ("AMD", "VERU")
+
+def main():
+    for x in tickertuple:
+        key = "ooA1BDEnla5owTATGDfKAuIi6puKOitC"
+        # variables to find high and low patterns
+
+        ticker = x
+        f = open(f"C:\\Stock\\{ticker}ALL.txt", "a")
+        
+        # RESTClient can be used as a context manager to facilitate closing the underlying http session
+        # https://requests.readthedocs.io/en/master/user/advanced/#session-objects
+        with RESTClient(key) as client:
+            from_ = "2019-01-01"
+            to = datetime.datetime.now().strftime("%Y-%m-%d")
+
+        # gets open, high, low and close for a stock
+            resp = client.stocks_equities_aggregates(ticker, 1, "day", from_, to, unadjusted=False)
+
+            for result in resp.results:
+                dt = ts_to_datetime(result["t"])
+
+                #record = f"Ticker:{resp.ticker}\t Date:{dt}\t High: {result['h']}\t Low: {result['l']}\t NewH: {high}\t Difference: {difference}\t DaysBetween: {countDays}\t\n"
+                print("T:" + resp.ticker + f"   D:{dt} H: {result['h']} L: {result['l']} ")
+
+
+if __name__ == '__main__':
+    main()
