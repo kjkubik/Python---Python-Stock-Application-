@@ -5,6 +5,7 @@ from polygon import RESTClient
 def ts_to_datetime(ts) -> str:
     return datetime.datetime.fromtimestamp(ts / 1000.0).strftime('%Y-%m-%d %H:%M')
 
+# Accessing and display data from stock API.
 def main():
     key = "ooA1BDEnla5owTATGDfKAuIi6puKOitC"
 
