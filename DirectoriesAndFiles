@@ -1,0 +1,35 @@
+import os
+import shutil
+
+# Which working directory am I in?
+print("Current working directory : %s" % os.getcwd())
+
+# testing and getting to directory and folder you want to get to.
+# example1: of changing to a directory
+os.chdir("C:")
+print("Current working dir : %s" % os.getcwd())
+
+# example2: of accessing a folder in a specific directory
+print("I change directory to D:\\AFolder.", flush = os.chdir("D://AFolder"))
+print("Which directory am I in? ", os.getcwd())
+
+#testing and getting a file opened and read
+# example1: reading single record in file
+print("I am opening a folder")
+f = open("OneLineInFile.txt", "r")
+print("Here is the single line in file: ", f.read())
+
+#example2: reading several lines in a file
+print("Opening A Multi-line file: ")
+g = open("MultilineFile.txt")
+
+for y in g:
+    print(y)
+
+# using shutil
+# example1: copy file from one place to another and showing it works
+print("Copy file to new file:")
+shutil.copyfile('MultilineFile.txt','ManyRecords.txt')
+h = open('ManyRecords.txt','r')
+for z in h:
+    print(z)
