@@ -1,14 +1,17 @@
+# matplotlib and numpy must be imported
 import matplotlib.pyplot as plt
 import numpy as np
 
-h=[9,2,3,6,21,5]
-l=[1,2,3,7,5,4,3]
-# to do open your file
-# let x always be your date/time and y be your close/open/high/low/weight/volumn
-x=[1,2,3,4,5,6]
-y=h
-z=l
+# for every minute, hour or day (x) move high, low, close, open, volumn (y's) into own list
+# let x always be your date/time and y's be your close/open/high/low/weight/volumn
 
-plt.plot(x,y)
-#plt.plot(x,z)
+highs = [9, 2, 3, 6, 21, 5]
+lows = [1, 2, 3, 7, 5, 3]
+
+x = [1, 2, 3, 4, 5, 6]
+y = highs
+z = lows
+
+plt.plot(x, y)
+plt.plot(x, z)
 plt.show()
