@@ -1,0 +1,33 @@
+import datetime
+from polygon import RESTClient
+
+
+def ts_to_datetime(ts) -> str:
+    return datetime.datetime.fromtimestamp(ts / 1000.0).strftime('%Y-%m-%d')
+
+
+def get_opens_closes():
+    key = "ooA1BDEnla5owTATGDfKAuIi6puKOitC"
+    from_ = "2018-01-01"
+    to = datetime.datetime.now().strftime("%Y-%m-%d")
+    ticker = "API"
+
+    f = open(f"D:\\Stocks\\{ticker} for {to}.csv", "a")
+
+    # RESTClient can be used as a context manager to facilitate closing the underlying http session
+    # https://requests.readthedocs.io/en/master/user/advanced/#session-objects
+    with RESTClient(key) as client:
+
+        resp = client.stocks_equities_aggregates(ticker, 1, "day", from_, to, unadjusted=False)
+
+        for result in resp.results:
+            dt = ts_to_datetime(result["t"])
+            record = f"{ticker},{dt},{result['o']},{result['c']}\n"
+            print("T:" + resp.ticker + f"   D:{dt} O: {result['o']} C: {result['c']} ")
+            f.write(record)
+    f.close()
+
+
+if __name__ == '__main__':
+    get_opens_closes()
+
