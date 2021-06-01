@@ -4,15 +4,14 @@ import math
 filename="D://AFolder//CloseRecordsforAPIDATEtoDATE.txt"
 opened_file = open(filename, 'r')
 
-# read every record and put into list
+# read every record and put into list. Result is a list of strings ending with '\n'
 open_price_list = opened_file.readlines()
-
-# we now have a list of strings with '\n' at end of each
 print(open_price_list)
-# we remove all the '\n'
+
+# we remove all the '\n' to get list of strings
 open_str_price_list = [x[:-1] for x in open_price_list]
-# list of strings
 print(open_str_price_list)
+
 # float the strings in the list
 open_price_nbr_list = [float(i) for i in open_str_price_list]
 print(open_price_nbr_list)
