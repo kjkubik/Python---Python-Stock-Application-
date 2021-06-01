@@ -1,14 +1,27 @@
 import math
 
-#to begin a string is returned. I need it as a number
+
 filename="D://AFolder//CloseRecordsforAPIDATEtoDATE.txt"
 opened_file = open(filename, 'r')
-# this will put all opens into a list
+
+# read every record and put into list
 open_price_list = opened_file.readlines()
-# you can see the list has "\n" at the end of each price
+
+# we now have a list of strings with '\n' at end of each
 print(open_price_list)
+# we remove all the '\n'
 open_str_price_list = [x[:-1] for x in open_price_list]
+# list of strings
 print(open_str_price_list)
-# I have to change each string to a number
+# float the strings in the list
 open_price_nbr_list = [float(i) for i in open_str_price_list]
 print(open_price_nbr_list)
+
+
+# this is other things I tried
+#lambda_list=map(lambda s: s.strip(), t)
+
+# we get rid of \n
+#final_open_price_list = [x for x in open_price_list if math.isnan(x) == False]
+#print(final_open_price_list)
+
