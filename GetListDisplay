@@ -1,0 +1,80 @@
+import datetime
+import matplotlib.pyplot as plt
+import numpy as np
+
+from polygon import RESTClient
+
+
+def ts_to_datetime(ts) -> str:
+    return datetime.datetime.fromtimestamp(ts / 1000.0).strftime('%Y-%m-%d %H:%M')
+
+
+def move_data_to_list(xfile,yfile):
+    x_file = open(xfile, 'r')
+    x_file_list = [float(i) for i in [x[:-1] for x in x_file.readlines()]]
+    print(x_file_list)
+    y_file = open(yfile, 'r')
+    y_file_list = [float(i) for i in [x[:-1] for x in y_file.readlines()]]
+    print(y_file_list)
+    plt.plot(x_file_list, y_file_list)
+
+
+
+def get_stock_price(client_key, ticker, time_span, from_, to, price):
+    # open file once
+    f = open(f"D:\\Stocks\\{ticker}{time_span}{price}.txt", "a")
+
+    #record = f"Ticker,Date, Open, High, Low, Close, Volume, Volume Weight, Number of Transactions\n"
+    #f.write(record)
+
+    with RESTClient(client_key) as client:
+
+        resp = client.stocks_equities_aggregates(ticker, 1, time_span, from_, to, unadjusted=False)
+        print(f"{time_span} {price} aggregates for {ticker} between {from_} and {to}.")
+        #print(f"Ticker,Date, Open, High, Low, Close, Volume, Volume Weight, Number of Transactions")
+
+        for result in resp.results:
+            dt = ts_to_datetime(result["t"])
+            print (dt)
+            #date =  TODO: FIX DATE
+            #print(f"{ticker}, {dt},{result['o']},{result['h']},{result['l']},{result['c']},{result['v']},{result['vw']},"
+            #      f"{result['n']}")
+            print(price)
+            if price == "high":
+                record = f"{result['h']}\n"
+                print(f"high:{result['h']}")
+                f.write(record)
+            if price == "low":
+                record = f"{result['l']}\n"
+                print(f"low:{result['l']}")
+                f.write(record)
+            if price == "date":
+                record = f"{result['d']}\n"
+                print(f"date:{result['d']}")
+                f.write(record)
+
+        f.close()
+
+
+def main():
+    # displaying stock prices
+    ticker = "AMD"
+    time_span = "day"
+    from_ = "2021-01-01"
+    to = "2021-06-01"
+    price = "high"
+    get_stock_price("ooA1BDEnla5owTATGDfKAuIi6puKOitC", "AMD", "day", "2021-01-01", "2021-06-01","high")
+    # this is NOT moving lows!!!
+    get_stock_price("ooA1BDEnla5owTATGDfKAuIi6puKOitC", "AMD", "day", "2021-01-01", "2021-06-01", "low")
+    get_stock_price("ooA1BDEnla5owTATGDfKAuIi6puKOitC", "AMD", "day", "2021-01-01", "2021-06-01", "date")
+    # get_stock_price("ooA1BDEnla5owTATGDfKAuIi6puKOitC", "AMD", "hour", "2021-03-12", "2021-03-16")
+    # get_stock_price("ooA1BDEnla5owTATGDfKAuIi6puKOitC", "AMD", "minute", "2021-03-14", "2021-03-15")
+    print("Data has been successfully stored in comma delimited file.")
+    move_data_to_list("D:\\Stocks\\AMDdayhigh.txt","D:\\Stocks\\AMDdaydate.txt")
+    move_data_to_list("D:\\Stocks\\AMDdayhigh.txt")
+
+    move_data_to_list("D:\\Stocks\\AMDdaylow.txt")
+
+
+if __name__ == '__main__':
+    main()
