@@ -7,7 +7,7 @@ def ts_to_datetime(ts) -> str:
 
 
 def get_opens_closes():
-    key = "ooA1BDEnla5owTATGDfKAuIi6puKOitC"
+    key = "<yourkey>"
     from_ = "2018-01-01"
     to = datetime.datetime.now().strftime("%Y-%m-%d")
     ticker = "API"
