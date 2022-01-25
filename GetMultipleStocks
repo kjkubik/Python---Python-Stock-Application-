@@ -9,7 +9,7 @@ tickertuple = ("AMD", "VERU")
 
 def main():
     for x in tickertuple:
-        key = "ooA1BDEnla5owTATGDfKAuIi6puKOitC"
+        key = "<your key>"
         # variables to find high and low patterns
 
         ticker = x
