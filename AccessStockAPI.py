@@ -7,7 +7,7 @@ def ts_to_datetime(ts) -> str:
 
 # Accessing and display data from stock API.
 def main():
-    key = "ooA1BDEnla5owTATGDfKAuIi6puKOitC"
+    key = "<your key>"
 
     # RESTClient can be used as a context manager to facilitate closing the underlying http session
     # https://requests.readthedocs.io/en/master/user/advanced/#session-objects
