@@ -10,7 +10,7 @@ os.chdir("C:")
 print("Current working dir : %s" % os.getcwd())
 
 # example2: of accessing a folder in a specific directory
-print("I change directory to D:\\AFolder.", flush = os.chdir("D://AFolder"))
+print("I change directory to D:\\Folder.", flush = os.chdir("D://Folder"))
 print("Which directory am I in? ", os.getcwd())
 
 #testing and getting a file opened and read
